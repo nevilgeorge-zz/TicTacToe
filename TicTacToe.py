@@ -66,3 +66,29 @@ class TicTacToe(object):
 				if spots == combo:
 					return player
 		return None
+
+	# Allows a player to make a move
+	# Places either a 'X' or an 'O' at the given position
+	def make_move(self, player, position):
+		self.spaces[position] = player
+	
+	# Returns the opponent of a given player
+	# Simply returns the opposite of what is passed in as a parameter
+	def get_enemy(player):
+		if player == 'X':
+			return 'O'
+		elif player == 'O':
+			return 'X'
+
+	# Returns a boolean to notify whether or not X is the winner
+	def X_won(self):
+		return self.winner() == 'X'
+
+	# Returns a boolean to notify whether or not O is the winner
+	def O_won(self):
+		return self.winner() == 'O'
+
+	# Returns a boolean to notify whether or not the game is tied
+	# A game is tied when the game is completed but there is no winner
+	def tied(self):
+		return self.complete() == True and self.winner() == None
