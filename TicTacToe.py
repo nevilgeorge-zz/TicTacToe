@@ -1,3 +1,5 @@
+import random
+
 class TicTacToe(object):
 	winning_combos = (
 		[0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -92,3 +94,48 @@ class TicTacToe(object):
 	# A game is tied when the game is completed but there is no winner
 	def tied(self):
 		return self.complete() == True and self.winner() == None
+
+
+	# The algorithm for the AI of this game
+	# Alpha Beta Pruning is used to drastically improve the performance of the game
+	# Each state of the game is a node. The algorithm is recursively iterated through the game states
+	# With this algorithm, branches in this game tree can be ignored since the algorithm focuses on the "better"
+	# parts of the tree.
+	# alpha and beta are the upper and lower cutoff limits respectively
+	def alphabeta(node, player, alpha, beta):
+		if node.X_won():
+			return -1
+		elif node.tied():
+			return 0
+		elif node.0_won():
+			return 1
+
+		for space in node.available_spaces():
+			node.make_move(player, space)
+			enemy = get_enemy(player)
+			value = self.alphabeta(node, enemy, alpha, beta)
+			node.make_move(None, space)
+			if player == 'O':
+				if val > alpha:
+					# upper bound increases when val is greater than alpha
+					alpha = val
+				if alpha >= beta:
+					return beta
+			else:
+				if val < beta:
+					# lower bound decreases when val is less than beta
+					beta = val
+				if beta <= alpha:
+					return alpha
+
+		if player == 'O':
+			return alpha
+		else:
+			return beta
+
+
+	def determine(board, player):
+		
+
+
+
