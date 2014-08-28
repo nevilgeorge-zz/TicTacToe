@@ -135,7 +135,22 @@ class TicTacToe(object):
 
 
 	def determine(board, player):
-		
+		a = -2
+		choices = []
+		if len(board.available_spaces()) == 9:
+			return 4
+		for space in board.available_spaces():
+			board.make_move(player, space)
+			enemy = self.get_enemy(player)
+			value = self.alphabeta(board, enemy, -2, 2)
+			board.make_move(None, space)
+			print "move:", move + 1, "causes:", board.winners[value + 1]
+			if value > a:
+				a = val
+				choices = [move]
+			elif val == a:
+				choices.append(move)
+		return random.choice(choices)
 
 
 
